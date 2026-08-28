@@ -22,7 +22,9 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [flutter3];
 }
 
-abstract final class GalleryOneAssets {
+class GalleryOneAssets {
+  const GalleryOneAssets._();
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

@@ -1,6 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
 class AssetGenImage {
   const AssetGenImage(
@@ -120,61 +118,10 @@ class SvgGenImage {
   final bool _isVecFormat;
   final String? package;
 
-  SvgPicture svg({
-    Key? key,
-    bool matchTextDirection = false,
-    AssetBundle? bundle,
-    String? package,
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
-    String? semanticsLabel,
-    bool excludeFromSemantics = false,
-    SvgTheme? theme,
-    ColorFilter? colorFilter,
-    Clip clipBehavior = Clip.hardEdge,
-    @Deprecated('Use colorFilter instead') Color? color,
-    @Deprecated('Use colorFilter instead')
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    @Deprecated('This no longer does anything') bool cacheColorFilter = false,
-  }) {
-    final bytesLoader = _isVecFormat
-        ? AssetBytesLoader(
-            _assetName,
-            assetBundle: bundle,
-            packageName: package ?? this.package,
-          )
-        : SvgAssetLoader(
-            _assetName,
-            assetBundle: bundle,
-            packageName: package ?? this.package,
-            theme: theme,
-          );
-    return SvgPicture(
-      bytesLoader,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
-          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
-      clipBehavior: clipBehavior,
-      // ignore: deprecated_member_use
-      cacheColorFilter: cacheColorFilter,
-    );
-  }
-
   String get path => _assetName;
 
   String get keyName =>
       package == null ? _assetName : 'packages/$package/$_assetName';
+
+  bool get isVecFormat => _isVecFormat;
 }

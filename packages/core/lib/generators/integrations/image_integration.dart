@@ -25,9 +25,10 @@ class ImageIntegration extends Integration {
       isPackage ? "'packages/$packageName/\$_assetName'" : '_assetName';
 
   @override
-  List<Import> get requiredImports => [
-        const Import(
-            'package:flutter_gen_interface/flutter_gen_interface.dart'),
+  List<Import> get requiredImports => const [
+        Import(
+          'package:flutter_gen_interface/flutter_gen_interface.dart',
+        ),
       ];
 
   @override

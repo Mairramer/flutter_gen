@@ -9,8 +9,12 @@
 // ignore_for_file: type=lint
 // ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen_interface/flutter_gen_interface.dart';
 export 'package:flutter_gen_interface/flutter_gen_interface.dart';
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $PicturesGen {
   const $PicturesGen();
@@ -54,13 +58,16 @@ class $AssetsImagesGen {
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/profile.jpg
-  AssetGenImage get profileJpg => const AssetGenImage('assets/images/profile.jpg');
+  AssetGenImage get profileJpg =>
+      const AssetGenImage('assets/images/profile.jpg');
 
   /// File path: assets/images/profile.png
-  AssetGenImage get profilePng => const AssetGenImage('assets/images/profile.png');
+  AssetGenImage get profilePng =>
+      const AssetGenImage('assets/images/profile.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [chip1, chip2, logo, profileJpg, profilePng];
+  List<AssetGenImage> get values =>
+      [chip1, chip2, logo, profileJpg, profilePng];
 }
 
 class $AssetsJsonGen {
@@ -100,7 +107,8 @@ class $AssetsImagesChip3Gen {
   const $AssetsImagesChip3Gen();
 
   /// File path: assets/images/chip3/chip3.jpg
-  AssetGenImage get chip3 => const AssetGenImage('assets/images/chip3/chip3.jpg');
+  AssetGenImage get chip3 =>
+      const AssetGenImage('assets/images/chip3/chip3.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [chip3];
@@ -110,7 +118,8 @@ class $AssetsImagesChip4Gen {
   const $AssetsImagesChip4Gen();
 
   /// File path: assets/images/chip4/chip4.jpg
-  AssetGenImage get chip4 => const AssetGenImage('assets/images/chip4/chip4.jpg');
+  AssetGenImage get chip4 =>
+      const AssetGenImage('assets/images/chip4/chip4.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [chip4];
@@ -120,10 +129,12 @@ class $AssetsImagesIconsGen {
   const $AssetsImagesIconsGen();
 
   /// File path: assets/images/icons/dart@test.svg
-  SvgGenImage get dartTest => const SvgGenImage('assets/images/icons/dart@test.svg');
+  SvgGenImage get dartTest =>
+      const SvgGenImage('assets/images/icons/dart@test.svg');
 
   /// File path: assets/images/icons/fuchsia.svg
-  SvgGenImage get fuchsia => const SvgGenImage('assets/images/icons/fuchsia.svg');
+  SvgGenImage get fuchsia =>
+      const SvgGenImage('assets/images/icons/fuchsia.svg');
 
   /// File path: assets/images/icons/kmm.svg
   SvgGenImage get kmm => const SvgGenImage('assets/images/icons/kmm.svg');
@@ -146,4 +157,62 @@ abstract final class BuildAssets {
 
   /// List of all assets
   static List<String> get values => [changelog];
+}
+
+extension SvgGenImageExtension on SvgGenImage {
+  _svg.SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    _svg.SvgTheme? theme,
+    _svg.ColorMapper? colorMapper,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    final _svg.BytesLoader loader;
+    if (isVecFormat) {
+      loader = _vg.AssetBytesLoader(
+        path,
+        assetBundle: bundle,
+        packageName: package ?? this.package,
+      );
+    } else {
+      loader = _svg.SvgAssetLoader(
+        path,
+        assetBundle: bundle,
+        packageName: package ?? this.package,
+        theme: theme,
+        colorMapper: colorMapper,
+      );
+    }
+    return _svg.SvgPicture(
+      loader,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+    );
+  }
 }

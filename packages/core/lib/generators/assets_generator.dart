@@ -167,9 +167,11 @@ Future<String> generateAssets(
     if (e.import ==
         'package:flutter_gen_interface/flutter_gen_interface.dart') {
       importsBuffer.writeln(
-          'import \'package:flutter_gen_interface/flutter_gen_interface.dart\';');
+        'import \'package:flutter_gen_interface/flutter_gen_interface.dart\';',
+      );
       importsBuffer.writeln(
-          'export \'package:flutter_gen_interface/flutter_gen_interface.dart\';');
+        'export \'package:flutter_gen_interface/flutter_gen_interface.dart\';',
+      );
     } else {
       importsBuffer.writeln(import(e));
     }

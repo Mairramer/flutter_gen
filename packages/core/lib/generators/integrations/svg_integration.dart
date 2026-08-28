@@ -10,16 +10,75 @@ class SvgIntegration extends Integration {
     super.parseMetadata,
   }) : super(packageName);
 
-  String get packageExpression => isPackage ? ' = package' : '';
-
   @override
-  List<Import> get requiredImports => [
-        const Import(
-            'package:flutter_gen_interface/flutter_gen_interface.dart'),
+  List<Import> get requiredImports => const [
+        Import('package:flutter_gen_interface/flutter_gen_interface.dart'),
+        Import('package:flutter/widgets.dart'),
+        Import('package:flutter/services.dart'),
+        Import('package:flutter_svg/flutter_svg.dart', alias: '_svg'),
+        Import('package:vector_graphics/vector_graphics.dart', alias: '_vg'),
       ];
 
   @override
-  String get classOutput => '';
+  String get classOutput => _classDefinition;
+
+  String get _classDefinition =>
+      '''extension SvgGenImageExtension on SvgGenImage {
+  _svg.SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    ${isPackage ? '$deprecationMessagePackage\n' : ''}String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    _svg.SvgTheme? theme,
+    _svg.ColorMapper? colorMapper,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    final _svg.BytesLoader loader;
+    if (isVecFormat) {
+      loader = _vg.AssetBytesLoader(
+        path,
+        assetBundle: bundle,
+        packageName: package ?? this.package,
+      );
+    } else {
+      loader = _svg.SvgAssetLoader(
+        path,
+        assetBundle: bundle,
+        packageName: package ?? this.package,
+        theme: theme,
+        colorMapper: colorMapper,
+      );
+    }
+    return _svg.SvgPicture(
+      loader,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter ?? (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+    );
+  }
+}''';
 
   @override
   String get className => 'SvgGenImage';

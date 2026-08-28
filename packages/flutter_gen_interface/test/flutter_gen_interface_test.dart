@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen_interface/flutter_gen_interface.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
 void main() {
   group('AssetGenImage', () {
@@ -38,32 +36,38 @@ void main() {
   });
 
   group('SvgGenImage', () {
-    test('properties and keyName', () {
-      const svg = SvgGenImage('assets/icon.svg');
+    test('properties and keyName for standard svg', () {
+      const svg = SvgGenImage(
+        'assets/icon.svg',
+        size: Size(24, 24),
+        flavors: {'free'},
+      );
       expect(svg.path, 'assets/icon.svg');
       expect(svg.keyName, 'assets/icon.svg');
+      expect(svg.size, const Size(24, 24));
+      expect(svg.flavors, {'free'});
+      expect(svg.isVecFormat, isFalse);
+      expect(svg.package, isNull);
 
       const packageSvg = SvgGenImage('assets/icon.svg', package: 'pkg');
       expect(packageSvg.path, 'assets/icon.svg');
       expect(packageSvg.keyName, r'packages/pkg/assets/icon.svg');
+      expect(packageSvg.package, 'pkg');
     });
 
-    testWidgets('svg returns SvgPicture widget', (tester) async {
-      const svg = SvgGenImage('assets/icon.svg');
-      final widget = svg.svg();
-      expect(widget.bytesLoader, isA<SvgAssetLoader>());
-      final loader = widget.bytesLoader as SvgAssetLoader;
-      expect(loader.assetName, 'assets/icon.svg');
-      expect(loader.packageName, isNull);
-    });
-
-    testWidgets('vec returns SvgPicture widget with AssetBytesLoader', (tester) async {
-      const vec = SvgGenImage.vec('assets/icon.vec');
-      final widget = vec.svg();
-      expect(widget.bytesLoader, isA<AssetBytesLoader>());
-      final loader = widget.bytesLoader as AssetBytesLoader;
-      expect(loader.assetName, 'assets/icon.vec');
-      expect(loader.packageName, isNull);
+    test('properties and keyName for vec format', () {
+      const vec = SvgGenImage.vec(
+        'assets/icon.vec',
+        size: Size(32, 32),
+        flavors: {'premium'},
+        package: 'pkg',
+      );
+      expect(vec.path, 'assets/icon.vec');
+      expect(vec.keyName, r'packages/pkg/assets/icon.vec');
+      expect(vec.size, const Size(32, 32));
+      expect(vec.flavors, {'premium'});
+      expect(vec.isVecFormat, isTrue);
+      expect(vec.package, 'pkg');
     });
   });
 }

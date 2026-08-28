@@ -174,6 +174,32 @@ void main() {
         isFalse,
       );
       expect(integration.isConstConstructor, isTrue);
+      expect(
+        integration.classOutput.contains(
+          'extension SvgGenImageExtension on SvgGenImage',
+        ),
+        isTrue,
+      );
+      expect(integration.classOutput.contains('String? package,'), isTrue);
+
+      final integrationWithPackage = SvgIntegration('package_name');
+      expect(
+        integrationWithPackage.classOutput.contains(
+          "@Deprecated('Do not specify package for a generated library asset')",
+        ),
+        isTrue,
+      );
+      expect(
+        integrationWithPackage.classInstantiate(
+          AssetType(
+            rootPath: resPath,
+            path: 'assets/path/dog.svg',
+            flavors: {},
+            transformers: {},
+          ),
+        ),
+        "SvgGenImage('assets/path/dog.svg', package: 'package_name',)",
+      );
     });
 
     test('Assets with Rive integrations on pubspec.yaml', () async {
