@@ -1,8 +1,24 @@
-## 5.15.0
+## 5.16.0
 
 **Feature**
 
 - [#759](https://github.com/FlutterGen/flutter_gen/issues/759) Added `flutter_gen_interface` to allow generated asset classes to implement a shared custom interface for Modular Architectures & Design Systems.
+
+## 5.15.0
+
+**Feature**
+
+- [#755](https://github.com/FlutterGen/flutter_gen/pull/755) Use `abstract final` class modifier for generated classes. by [@RahmiTufanoglu](https://github.com/RahmiTufanoglu)
+
+**Fix**
+
+- [#764](https://github.com/FlutterGen/flutter_gen/pull/764) Add `xml 7.x` support by widening `flutter_gen_core`'s `xml` constraint to `>=6.0.0 <8.0.0`. by [@Akhrameev](https://github.com/Akhrameev)
+
+**Development**
+
+- [#757](https://github.com/FlutterGen/flutter_gen/pull/757) Scope `GITHUB_TOKEN` to least privilege in the release workflow.
+- Fix tag glob in the `Release` / `Publish` workflows so pushing a `vMAJOR.MINOR.PATCH[+build|-pre]` tag actually triggers them (previous `publish.yml` used regex syntax that GitHub Actions filter globs never matched).
+- Bump CI toolchain: Flutter `3.44.4`, Node.js `24.18.0`, pnpm `11.9.0`, `lint-staged` `v17`.
 
 ## 5.14.1
 
